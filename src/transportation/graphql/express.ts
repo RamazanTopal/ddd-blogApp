@@ -6,11 +6,13 @@ import { Application } from 'express'
 import { Context } from './context'
 
 import UserService from '../../domain/services/user/user.service'
+import PostService from '../../domain/services/post/post.service'
 
 export default async function registerExpressMiddleware(
   app: Application,
   server: ApolloServer<Context>,
-  userService: UserService
+  userService: UserService,
+  postService: PostService
 ): Promise<void> {
   await server.start()
   app.use(
@@ -21,6 +23,7 @@ export default async function registerExpressMiddleware(
       async context(reqCtx): Promise<Context> {
         return {
           userService,
+          postService,
         }
       },
     })

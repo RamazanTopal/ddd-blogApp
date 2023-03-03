@@ -15,7 +15,7 @@ export default class PrismaUserRepository implements IUserRepository {
   }
 
   async findMany(): Promise<User[]> {
-    return await this.prisma.user.findMany({})
+    return await this.prisma.user.findMany({ include: { posts: true } })
   }
 
   async findUnique(id: number): Promise<User | undefined> {
