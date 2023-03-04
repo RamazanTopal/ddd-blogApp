@@ -7,12 +7,12 @@ import createApplication from './createApplication'
 async function startServer(): Promise<void> {
   const app: Application = express()
 
-  const { userService, userController, postController, postService } = createApplication()
+  const { userService, userController, postController, postService, commentController, commentService } = createApplication()
   const graphqlServer = createGraphqlServer()
 
-  await registerExpressMiddleware(app, graphqlServer, userService, postService)
+  await registerExpressMiddleware(app, graphqlServer, userService, postService, commentService)
 
-  createHttpServer(app, { userController, postController })
+  createHttpServer(app, { userController, postController, commentController })
 
   app.listen(3000, () => {
     console.log('listening on http://localhost:3000')

@@ -4,11 +4,7 @@ import PostService from '../../../domain/services/post/post.service'
 export default class PostController {
   constructor(private postService: PostService) {}
 
-  async getPosts(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async getPosts(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { posts } = await this.postService.findMany()
 
@@ -29,11 +25,7 @@ export default class PostController {
     }
   }
 
-  async deletePost(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async deletePost(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const id = req.params.id
       const post = await this.postService.delete(Number(id))
@@ -44,11 +36,7 @@ export default class PostController {
     }
   }
 
-  async createPost(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async createPost(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { title, content, authorId } = req.body
 
@@ -64,11 +52,7 @@ export default class PostController {
     }
   }
 
-  async updatePost(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async updatePost(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { title, content, authorId } = req.body
       const { id } = req.params

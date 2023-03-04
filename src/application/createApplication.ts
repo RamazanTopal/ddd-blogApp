@@ -5,6 +5,9 @@ import PrismaUserRepository from '../infrastructure/repositories/prisma/user/ind
 import PostController from '../transportation/http/controllers/post.controller'
 import PostService from '../domain/services/post/post.service'
 import PrismaPostRepository from '../infrastructure/repositories/prisma/post/index'
+import CommentController from '../transportation/http/controllers/comment.controller'
+import CommentService from '../domain/services/comment/comment.service'
+import PrismaCommentRepository from '../infrastructure/repositories/prisma/comment/index'
 
 export default function createApplication() {
   const prisma = new PrismaClient()
@@ -16,10 +19,16 @@ export default function createApplication() {
   const postService = new PostService(prismaPostRepository)
   const postController = new PostController(postService)
 
+  const prismaCommentRepository = new PrismaCommentRepository(prisma)
+  const commentService = new CommentService(prismaCommentRepository)
+  const commentController = new CommentController(commentService)
+
   return {
     userController,
     userService,
     postController,
     postService,
+    commentController,
+    commentService,
   }
 }

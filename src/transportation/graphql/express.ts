@@ -7,12 +7,14 @@ import { Context } from './context'
 
 import UserService from '../../domain/services/user/user.service'
 import PostService from '../../domain/services/post/post.service'
+import CommentService from '../../domain/services/comment/comment.service'
 
 export default async function registerExpressMiddleware(
   app: Application,
   server: ApolloServer<Context>,
   userService: UserService,
-  postService: PostService
+  postService: PostService,
+  commentService: CommentService
 ): Promise<void> {
   await server.start()
   app.use(
@@ -24,6 +26,7 @@ export default async function registerExpressMiddleware(
         return {
           userService,
           postService,
+          commentService,
         }
       },
     })

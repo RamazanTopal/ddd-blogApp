@@ -4,11 +4,7 @@ import UserService from '../../../domain/services/user/user.service'
 export default class UserController {
   constructor(private userService: UserService) {}
 
-  async getUsers(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async getUsers(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { users } = await this.userService.findMany()
 
@@ -29,11 +25,7 @@ export default class UserController {
     }
   }
 
-  async deleteUser(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async deleteUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const id = req.params.id
       const user = await this.userService.delete(Number(id))
@@ -44,17 +36,12 @@ export default class UserController {
     }
   }
 
-  async registerUser(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async registerUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { name, email, phone, password } = req.body
 
       const user = await this.userService.register({
         name,
-
         email,
         phone,
         password,
@@ -66,11 +53,7 @@ export default class UserController {
     }
   }
 
-  async loginUser(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async loginUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { email, password } = req.body
 
@@ -85,11 +68,7 @@ export default class UserController {
     }
   }
 
-  async updateUser(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
+  async updateUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { name, email, phone } = req.body
       const { id } = req.params
@@ -97,7 +76,6 @@ export default class UserController {
       const user = await this.userService.update({
         id,
         name,
-
         email,
         phone,
       })
