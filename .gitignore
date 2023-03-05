@@ -71,3 +71,4 @@ dist
 .history
 **/components
 *.mongodb
+src/infrastructure/db/prisma/migrations/

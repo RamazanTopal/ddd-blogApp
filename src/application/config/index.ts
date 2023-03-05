@@ -1,16 +1,10 @@
 import 'dotenv/config'
 
 export class Config {
-  private constructor(
-    public readonly DATABASE_URL: string,
-    public readonly PORT: number
-  ) {}
+  private constructor(public readonly DATABASE_URL: string, public readonly PORT: number) {}
 
-  static load(): Config {
-    return new Config(
-      Config.getEnv('DATABASE_URL'),
-      Config.getEnvNumber('PORT')
-    )
+  static create(): Config {
+    return new Config(Config.getEnv('DATABASE_URL'), Config.getEnvNumber('PORT'))
   }
 
   private static getEnvNumber(envName: string): number {

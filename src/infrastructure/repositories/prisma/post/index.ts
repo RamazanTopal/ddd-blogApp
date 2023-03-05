@@ -38,10 +38,10 @@ export default class PrismaPostRepository implements IPostRepository {
     })
   }
 
-  async update({ id, title, content, authorId }): Promise<IPost | undefined> {
+  async update({ id, title, content, published }): Promise<IPost | undefined> {
     return await this.prisma.post.update({
       where: { id: Number(id) },
-      data: { title, content, authorId },
+      data: { title, content, published },
     })
   }
 }

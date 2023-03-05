@@ -30,6 +30,27 @@ export interface NexusGenInputs {
     name: string; // String!
     phone: string; // String!
   }
+  createCommentInput: { // input type
+    commentParentId?: number | null; // Int
+    message?: string | null; // String
+    postId?: number | null; // Int
+    userId?: number | null; // Int
+  }
+  createPostInput: { // input type
+    authorId?: number | null; // Int
+    content?: string | null; // String
+    title?: string | null; // String
+  }
+  updateCommentInput: { // input type
+    id?: number | null; // Int
+    message?: string | null; // String
+  }
+  updatePostInput: { // input type
+    content?: string | null; // String
+    id?: number | null; // Int
+    published?: boolean | null; // Boolean
+    title?: string | null; // String
+  }
 }
 
 export interface NexusGenEnums {
@@ -44,7 +65,21 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Comment: { // root type
+    commentParentId?: number | null; // Int
+    id?: number | null; // Int
+    message?: string | null; // String
+    postId?: number | null; // Int
+    userId?: number | null; // Int
+  }
   Mutation: {};
+  Post: { // root type
+    authorId?: number | null; // Int
+    content?: string | null; // String
+    id?: number | null; // Int
+    published?: boolean | null; // Boolean
+    title?: string | null; // String
+  }
   Query: {};
   User: { // root type
     email?: string | null; // String
@@ -65,13 +100,41 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Comment: { // field return type
+    commentParentId: number | null; // Int
+    id: number | null; // Int
+    message: string | null; // String
+    post: NexusGenRootTypes['Post'] | null; // Post
+    postId: number | null; // Int
+    user: NexusGenRootTypes['User'] | null; // User
+    userId: number | null; // Int
+  }
   Mutation: { // field return type
+    createComment: NexusGenRootTypes['Comment'] | null; // Comment
+    createPost: NexusGenRootTypes['Post'] | null; // Post
+    deleteComment: NexusGenRootTypes['Comment'] | null; // Comment
+    deletePost: NexusGenRootTypes['Post'] | null; // Post
     deleteUser: NexusGenRootTypes['User'] | null; // User
     loginUser: NexusGenRootTypes['User'] | null; // User
     registerUser: NexusGenRootTypes['User'] | null; // User
+    updateComment: NexusGenRootTypes['Comment'] | null; // Comment
+    updatePost: NexusGenRootTypes['Post'] | null; // Post
     updateUser: NexusGenRootTypes['User'] | null; // User
   }
+  Post: { // field return type
+    author: NexusGenRootTypes['User'] | null; // User
+    authorId: number | null; // Int
+    comments: Array<NexusGenRootTypes['Comment'] | null> | null; // [Comment]
+    content: string | null; // String
+    id: number | null; // Int
+    published: boolean | null; // Boolean
+    title: string | null; // String
+  }
   Query: { // field return type
+    comment: NexusGenRootTypes['Comment'] | null; // Comment
+    comments: Array<NexusGenRootTypes['Comment'] | null> | null; // [Comment]
+    post: NexusGenRootTypes['Post'] | null; // Post
+    posts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     user: NexusGenRootTypes['User'] | null; // User
     users: Array<NexusGenRootTypes['User'] | null>; // [User]!
   }
@@ -84,13 +147,41 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Comment: { // field return type name
+    commentParentId: 'Int'
+    id: 'Int'
+    message: 'String'
+    post: 'Post'
+    postId: 'Int'
+    user: 'User'
+    userId: 'Int'
+  }
   Mutation: { // field return type name
+    createComment: 'Comment'
+    createPost: 'Post'
+    deleteComment: 'Comment'
+    deletePost: 'Post'
     deleteUser: 'User'
     loginUser: 'User'
     registerUser: 'User'
+    updateComment: 'Comment'
+    updatePost: 'Post'
     updateUser: 'User'
   }
+  Post: { // field return type name
+    author: 'User'
+    authorId: 'Int'
+    comments: 'Comment'
+    content: 'String'
+    id: 'Int'
+    published: 'Boolean'
+    title: 'String'
+  }
   Query: { // field return type name
+    comment: 'Comment'
+    comments: 'Comment'
+    post: 'Post'
+    posts: 'Post'
     user: 'User'
     users: 'User'
   }
@@ -104,6 +195,18 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createComment: { // args
+      data?: NexusGenInputs['createCommentInput'] | null; // createCommentInput
+    }
+    createPost: { // args
+      data?: NexusGenInputs['createPostInput'] | null; // createPostInput
+    }
+    deleteComment: { // args
+      id: number; // Int!
+    }
+    deletePost: { // args
+      id: number; // Int!
+    }
     deleteUser: { // args
       id: number; // Int!
     }
@@ -113,11 +216,23 @@ export interface NexusGenArgTypes {
     registerUser: { // args
       data?: NexusGenInputs['RegisterUserInput'] | null; // RegisterUserInput
     }
+    updateComment: { // args
+      data?: NexusGenInputs['updateCommentInput'] | null; // updateCommentInput
+    }
+    updatePost: { // args
+      data?: NexusGenInputs['updatePostInput'] | null; // updatePostInput
+    }
     updateUser: { // args
       data?: NexusGenInputs['UserUpdateInputType'] | null; // UserUpdateInputType
     }
   }
   Query: {
+    comment: { // args
+      id: number; // Int!
+    }
+    post: { // args
+      id: number; // Int!
+    }
     user: { // args
       id: number; // Int!
     }

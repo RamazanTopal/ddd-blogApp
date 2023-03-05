@@ -54,14 +54,14 @@ export default class PostController {
 
   async updatePost(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const { title, content, authorId } = req.body
+      const { title, content, published } = req.body
       const { id } = req.params
 
       const post = await this.postService.update({
         id,
         title,
         content,
-        authorId,
+        published,
       })
 
       return res.json({ post })

@@ -5,5 +5,5 @@ export default interface IUserRepository {
   findMany(): Promise<IPost[]>
   findUnique(id: number): Promise<IPost | undefined>
   create({ title, content, authorId }): Promise<IPost | undefined>
-  update({ id, title, content, authorId }): Promise<IPost | undefined>
+  update({ id, title, content, published }): Promise<IPost | undefined>
 }

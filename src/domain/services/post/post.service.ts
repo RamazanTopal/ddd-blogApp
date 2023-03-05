@@ -1,4 +1,4 @@
-import { IPost } from '../../entities/index.entity'
+import { IComment, IPost } from '../../entities/index.entity'
 import IPostRepository from '../../repositories/post.repository'
 
 export default class PostService {
@@ -11,14 +11,14 @@ export default class PostService {
       throw new Error('Post not found')
     }
 
-    return this.repo.deleteOne(id)
+    return await this.repo.deleteOne(id)
   }
 
   async findUnique(id: number): Promise<IPost | undefined> {
     return await this.repo.findUnique(id)
   }
 
-  async findMany(): Promise<{ posts: IPost[] }> {
+  async findMany(): Promise<{ posts: IPost[] | IComment[] }> {
     const posts = await this.repo.findMany()
 
     return {
@@ -34,7 +34,7 @@ export default class PostService {
     })
   }
 
-  async update({ id, title, content, authorId }): Promise<IPost | undefined> {
-    return await this.repo.update({ id, title, content, authorId })
+  async update({ id, title, content, published }): Promise<IPost | undefined> {
+    return await this.repo.update({ id, title, content, published })
   }
 }

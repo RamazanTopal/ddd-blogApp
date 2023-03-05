@@ -1,5 +1,5 @@
 import { intArg, mutationField, nonNull, inputObjectType } from 'nexus'
-import { ResourceNotFoundError } from '../../http/errors'
+import { GraphqlResourceNotFoundError } from '../errors'
 
 export const RegisterUserInput = inputObjectType({
   name: 'RegisterUserInput',
@@ -39,7 +39,7 @@ export const deleteUser = mutationField('deleteUser', {
 
     if (user) return user
 
-    throw new ResourceNotFoundError('User is not found')
+    throw new GraphqlResourceNotFoundError('User is not found')
   },
 })
 
@@ -58,7 +58,7 @@ export const registerUser = mutationField('registerUser', {
 
     if (user) return user
 
-    throw new ResourceNotFoundError('User is not found')
+    throw new GraphqlResourceNotFoundError('User is not found')
   },
 })
 
@@ -77,7 +77,7 @@ export const updateUser = mutationField('updateUser', {
 
     if (machine) return machine
 
-    throw new ResourceNotFoundError('User is not found')
+    throw new GraphqlResourceNotFoundError('User is not found')
   },
 })
 
@@ -94,6 +94,6 @@ export const loginUser = mutationField('loginUser', {
 
     if (user) return user
 
-    throw new ResourceNotFoundError('User is not found')
+    throw new GraphqlResourceNotFoundError('User is not found')
   },
 })

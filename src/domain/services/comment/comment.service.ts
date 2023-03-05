@@ -1,5 +1,5 @@
 import { IComment } from '../../entities/index.entity'
-import ICommentRepository from '../../repositories/comment.repository'
+import ICommentRepository, { ComentFindAllOptions } from '../../repositories/comment.repository'
 
 export default class CommentService {
   constructor(private repo: ICommentRepository) {}
@@ -11,7 +11,7 @@ export default class CommentService {
       throw new Error('Comment not found')
     }
 
-    return this.repo.deleteOne(id)
+    return await this.repo.deleteOne(id)
   }
 
   async findUnique(id: number): Promise<IComment | undefined> {
@@ -26,15 +26,24 @@ export default class CommentService {
     }
   }
 
-  async sendComment({ message, postId, userId }): Promise<IComment | undefined> {
+  async findManyByOptions(opts: ComentFindAllOptions): Promise<{ comments: IComment[] }> {
+    const comments = await this.repo.findManyByOptions(opts)
+
+    return {
+      comments,
+    }
+  }
+
+  async createComment({ message, postId, userId, commentParentId }): Promise<IComment | undefined> {
     return await this.repo.create({
       message,
       postId,
       userId,
+      commentParentId,
     })
   }
 
-  async update({ id, message, postId, userId }): Promise<IComment | undefined> {
-    return await this.repo.update({ id, message, postId, userId })
+  async update({ id, message }): Promise<IComment | undefined> {
+    return await this.repo.update({ id, message })
   }
 }

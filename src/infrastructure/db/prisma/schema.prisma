@@ -31,11 +31,14 @@ model Post {
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  message   String
-  createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  id              Int       @id @default(autoincrement())
+  message         String
+  createdAt       DateTime  @default(now())
+  post            Post      @relation(fields: [postId], references: [id])
+  postId          Int
+  user            User      @relation(fields: [userId], references: [id])
+  userId          Int
+  childComments   Comment[] @relation("Comment_Reply")
+  parentComment   Comment?  @relation("Comment_Reply", fields: [commentParentId], references: [id], onDelete: Cascade)
+  commentParentId Int?
 }

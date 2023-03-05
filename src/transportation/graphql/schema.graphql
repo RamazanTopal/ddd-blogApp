@@ -2,19 +2,49 @@
 ### Do not make changes to this file directly
 
 
+type Comment {
+  commentParentId: Int
+  id: Int
+  message: String
+  post: Post
+  postId: Int
+  user: User
+  userId: Int
+}
+
 input LoginUserInput {
   email: String!
   password: String!
 }
 
 type Mutation {
+  createComment(data: createCommentInput): Comment
+  createPost(data: createPostInput): Post
+  deleteComment(id: Int!): Comment
+  deletePost(id: Int!): Post
   deleteUser(id: Int!): User
   loginUser(data: LoginUserInput): User
   registerUser(data: RegisterUserInput): User
+  updateComment(data: updateCommentInput): Comment
+  updatePost(data: updatePostInput): Post
   updateUser(data: UserUpdateInputType): User
 }
 
+type Post {
+  author: User
+  authorId: Int
+  comments: [Comment]
+  content: String
+  id: Int
+  published: Boolean
+  title: String
+}
+
 type Query {
+  comment(id: Int!): Comment
+  comments: [Comment]
+  post(id: Int!): Post
+  posts: [Post]!
   user(id: Int!): User
   users: [User]!
 }
@@ -38,4 +68,29 @@ input UserUpdateInputType {
   id: Int!
   name: String!
   phone: String!
+}
+
+input createCommentInput {
+  commentParentId: Int
+  message: String
+  postId: Int
+  userId: Int
+}
+
+input createPostInput {
+  authorId: Int
+  content: String
+  title: String
+}
+
+input updateCommentInput {
+  id: Int
+  message: String
+}
+
+input updatePostInput {
+  content: String
+  id: Int
+  published: Boolean
+  title: String
 }

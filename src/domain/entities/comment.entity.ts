@@ -3,4 +3,5 @@ export default interface IComment {
   message: string
   postId: number
   userId: number
+  commentParentId: number | null
 }

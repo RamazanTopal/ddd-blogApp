@@ -1,9 +1,6 @@
 import { IUser } from '../../entities/index.entity'
 import IUserRepository from '../../repositories/user.repository'
-import {
-  verifyPassword,
-  hashPassword,
-} from '../../../application/utils/password'
+import { verifyPassword, hashPassword } from '../../../application/utils/password'
 
 export default class UserService {
   constructor(private repo: IUserRepository) {}
@@ -15,7 +12,7 @@ export default class UserService {
       throw new Error('User not found')
     }
 
-    return this.repo.deleteOne(id)
+    return await this.repo.deleteOne(id)
   }
 
   async findUnique(id: number): Promise<IUser | undefined> {
@@ -30,31 +27,18 @@ export default class UserService {
     }
   }
 
-  async register({
-    name,
-
-    email,
-    phone,
-    password,
-  }): Promise<IUser | undefined> {
+  async register({ name, email, phone, password }): Promise<IUser | undefined> {
     const hashedPassword = await hashPassword(password)
 
     return await this.repo.register({
       name,
-
       email,
       phone,
       password: hashedPassword,
     })
   }
 
-  async update({
-    id,
-    name,
-
-    email,
-    phone,
-  }): Promise<IUser | undefined> {
+  async update({ id, name, email, phone }): Promise<IUser | undefined> {
     return await this.repo.update({ id, name, email, phone })
   }
 

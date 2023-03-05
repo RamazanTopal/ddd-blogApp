@@ -1,5 +1,5 @@
 import { extendType, nonNull, intArg } from 'nexus'
-import { ResourceNotFoundError } from '../../../http/errors'
+import { GraphqlResourceNotFoundError } from '../../errors/index'
 
 export const users = extendType({
   type: 'Query',
@@ -26,7 +26,7 @@ export const user = extendType({
 
         if (user) return user
 
-        throw new ResourceNotFoundError('User not found')
+        throw new GraphqlResourceNotFoundError('User not found')
       },
     })
   },

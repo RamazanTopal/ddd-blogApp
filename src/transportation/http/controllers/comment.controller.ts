@@ -38,12 +38,13 @@ export default class CommentController {
 
   async sendComment(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const { message, postId, userId, mainCommentId } = req.body
+      const { message, postId, userId, commentParentId } = req.body
 
-      const comment = await this.commentService.sendComment({
+      const comment = await this.commentService.createComment({
         message,
         postId,
         userId,
+        commentParentId,
       })
 
       return res.json({ comment })
@@ -54,14 +55,12 @@ export default class CommentController {
 
   async updateComment(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const { message, postId, userId } = req.body
+      const { message } = req.body
       const { id } = req.params
 
       const comment = await this.commentService.update({
         id,
         message,
-        postId,
-        userId,
       })
 
       return res.json({ comment })
